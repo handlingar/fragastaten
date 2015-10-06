@@ -6,6 +6,8 @@ import os
 import sys
 import re
 
+import froide
+
 rec = lambda x: re.compile(x, re.I | re.U)
 
 gettext = lambda s: s
@@ -78,9 +80,10 @@ class Base(Configuration):
     # ############## PATHS ###############
 
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+    FROIDE_ROOT = os.path.abspath(os.path.dirname(froide.__file__))
 
     LOCALE_PATHS = values.TupleValue(
-        (os.path.abspath(os.path.join(PROJECT_ROOT, '..', "locale")),)
+        (os.path.abspath(os.path.join(FROIDE_ROOT, '..', "locale")),)
     )
 
     GEOIP_PATH = None
@@ -96,11 +99,11 @@ class Base(Configuration):
     # Don't put anything in this directory yourself; store your static files
     # in apps' "static/" subdirectories and in STATICFILES_DIRS.
     # Example: "/home/media/media.lawrence.com/static/"
-    STATIC_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, "..", "public"))
+    STATIC_ROOT = os.path.abspath(os.path.join(FROIDE_ROOT, "..", "public"))
 
     # Additional locations of static files
     STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, "static"),
+        os.path.join(FROIDE_ROOT, "static"),
     )
     COMPRESS_ENABLED = values.BooleanValue(False)
     COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
@@ -110,7 +113,7 @@ class Base(Configuration):
 
     # Additional locations of template files
     TEMPLATE_DIRS = (
-        os.path.join(PROJECT_ROOT, "templates"),
+        os.path.join(FROIDE_ROOT, "templates"),
     )
 
     # ########## URLs #################
@@ -442,7 +445,7 @@ class Test(Base):
 
     @property
     def MEDIA_ROOT(self):
-        return os.path.abspath(os.path.join(super(Test, self).PROJECT_ROOT, "tests", "testdata"))
+        return os.path.abspath(os.path.join(super(Test, self).FROIDE_ROOT, "tests", "testdata"))
 
     MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
     CACHES = values.CacheURLValue('locmem://')
@@ -467,7 +470,7 @@ class Test(Base):
         return {
             'default': {
                 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-                'PATH': os.path.join(super(Test, self).PROJECT_ROOT, 'tests/froide_test_whoosh_db'),
+                'PATH': os.path.join(super(Test, self).FROIDE_ROOT, 'tests/froide_test_whoosh_db'),
             },
         }
 
