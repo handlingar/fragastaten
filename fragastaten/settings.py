@@ -17,7 +17,7 @@ class Base(Configuration):
     DEBUG = values.BooleanValue(True)
     TEMPLATE_DEBUG = values.BooleanValue(DEBUG)
 
-    DATABASES = values.DatabaseURLValue('sqlite:///dev.db')
+    DATABASES = values.DatabaseURLValue('sqlite:///var/dev.db')
     CONN_MAX_AGE = None
 
     INSTALLED_APPS = values.ListValue([
@@ -87,7 +87,7 @@ class Base(Configuration):
 
     # Absolute filesystem path to the directory that will hold user-uploaded files.
     # Example: "/home/media/media.lawrence.com/media/"
-    MEDIA_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, "..", "files"))
+    MEDIA_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, "..", "var", "upload"))
 
     # Sub path in MEDIA_ROOT that will hold FOI attachments
     FOI_MEDIA_PATH = values.Value('foi')
@@ -192,7 +192,7 @@ class Base(Configuration):
     # timezone as the operating system.
     # If running in a Windows environment this must be set to the same as your
     # system time zone.
-    TIME_ZONE = values.Value('Europe/Berlin')
+    TIME_ZONE = values.Value('Europe/Stockholm')
     USE_TZ = values.BooleanValue(True)
 
     # Language code for this installation. All choices can be found here:
