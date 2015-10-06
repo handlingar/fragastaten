@@ -15,4 +15,7 @@ parts
 src
 *.egg-info
 fragastaten/local_settings.py
+fragastaten/whoosh_index
+djcelery
+local
 
